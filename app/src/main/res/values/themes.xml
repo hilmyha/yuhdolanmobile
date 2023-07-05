@@ -1,9 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Yuhdolanmobile" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Yuhdolanmobile" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/red_200</item>
+        <item name="colorPrimaryVariant">@color/red_200</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <item name="fontFamily">@font/roboto</item>
     </style>
 
     <style name="Theme.Yuhdolanmobile" parent="Base.Theme.Yuhdolanmobile" />
+
+    <style name="fragments_style">
+        <item name="android:padding">24dp</item>
+    </style>
+
+    <style name="app_style">
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="Nav_Bottom">
+        <item name="itemTextColor">@color/bottom_nav_text</item>
+        <item name="itemIconTint">@color/bottom_nav_text</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:background">@color/black</item>
+    </style>
 </resources>
