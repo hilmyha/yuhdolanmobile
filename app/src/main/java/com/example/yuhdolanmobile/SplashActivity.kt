@@ -11,7 +11,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            val goto = Intent(this, MainActivity::class.java)
+            val goto = Intent(this, LoginActivity::class.java)
             startActivity(goto)
             finish()
         }, 3000)
