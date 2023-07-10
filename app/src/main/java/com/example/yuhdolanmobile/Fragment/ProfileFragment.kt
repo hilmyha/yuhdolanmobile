@@ -19,6 +19,8 @@ import com.example.yuhdolanmobile.Network.ApiClient
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.LogoutResponse
 import com.example.yuhdolanmobile.Response.UserResponse
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.createSkeleton
 import retrofit2.Call
 import retrofit2.Response
 
@@ -41,6 +43,8 @@ class ProfileFragment : Fragment() {
     private lateinit var tvName: TextView
     private lateinit var tvEmail: TextView
 
+    private lateinit var skeleton: Skeleton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -60,12 +64,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view:View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progressDialog()
-
-
         btnLogout = view.findViewById(R.id.btn_logout)
         tvName = view.findViewById(R.id.tv_name_profile)
         tvEmail = view.findViewById(R.id.tv_email_profile)
+
+        skeleton = view.findViewById(R.id.skeletonLayout)
+        skeleton.showSkeleton()
 
         // get user data from api
         getUserData()
@@ -78,7 +82,6 @@ class ProfileFragment : Fragment() {
             builder.setMessage("Are you sure want to logout?")
             builder.setPositiveButton("Yes") { dialog: DialogInterface, _ ->
                 dialog.dismiss()
-//                logout()
                 userLogout()
             }
             builder.setNegativeButton("No") { dialog: DialogInterface, _ ->
@@ -118,53 +121,33 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    private fun progressDialog() {
-        val progressDialog = ProgressDialog(requireActivity())
-        progressDialog.setMessage("Mengambil data")
-        progressDialog.show()
-        // delay 2 seconds
+    private fun getUserData() {
         val handler = android.os.Handler()
         handler.postDelayed({
-            progressDialog.dismiss()
-        }, 1500)
-    }
-    private fun getUserData() {
-        val sharedPreferences = requireActivity().getSharedPreferences("Login", Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("Token", "")
+            val sharedPreferences = requireActivity().getSharedPreferences("Login", Context.MODE_PRIVATE)
+            val token = sharedPreferences.getString("Token", "")
 
-        val apiClient = ApiClient
-        val apiCall = apiClient.create("Bearer $token")?.getUser()
+            val apiClient = ApiClient
+            val apiCall = apiClient.create("Bearer $token")?.getUser()
 
-        apiCall?.enqueue(object : retrofit2.Callback<UserResponse> {
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                if (response.isSuccessful) {
-                    tvName.text = response.body()?.name
-                    tvEmail.text = response.body()?.email
-                } else {
-                    Toast.makeText(requireActivity(), "Failed to get user data", Toast.LENGTH_SHORT).show()
+            apiCall?.enqueue(object : retrofit2.Callback<UserResponse> {
+                override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                    if (response.isSuccessful) {
+                        skeleton.showOriginal()
+                        tvName.text = response.body()?.name
+                        tvEmail.text = response.body()?.email
+                    } else {
+                        Toast.makeText(requireActivity(), "Failed to get user data", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                Toast.makeText(requireActivity(), "Failed to get user data", Toast.LENGTH_SHORT).show()
-                Log.e("Error", t.toString())
-            }
-        })
-
-
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Toast.makeText(requireActivity(), "Failed to get user data", Toast.LENGTH_SHORT).show()
+                    Log.e("Error", t.toString())
+                }
+            })
+        }, 1000)
     }
-
-//    private fun logout() {
-//        val sharedPreferences = requireActivity().getSharedPreferences("Login", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.clear()
-//        editor.apply()
-//
-//        val intent = Intent(requireActivity(), LoginActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        startActivity(intent)
-//        requireActivity().finish()
-//    }
 
     companion object {
         /**

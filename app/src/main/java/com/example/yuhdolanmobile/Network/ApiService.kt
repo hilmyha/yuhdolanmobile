@@ -1,5 +1,7 @@
 package com.example.yuhdolanmobile.Network
 
+import com.example.yuhdolanmobile.Response.Category
+import com.example.yuhdolanmobile.Response.CategoryResponse
 import com.example.yuhdolanmobile.Response.LoginRequest
 import com.example.yuhdolanmobile.Response.LoginResponse
 import com.example.yuhdolanmobile.Response.LogoutRequest
@@ -29,4 +31,6 @@ interface ApiService {
     @GET("user")
     fun getUser(): Call<UserResponse>
 
+    @GET("category")
+    fun getCategory(): Call<CategoryResponse>
 }

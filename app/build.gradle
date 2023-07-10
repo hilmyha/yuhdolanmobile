@@ -34,6 +34,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
 }
 
 dependencies {
@@ -59,4 +64,6 @@ dependencies {
     // OkHttp
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
+    // Skeleton Layout
+    implementation 'com.faltenreich:skeletonlayout:4.0.0'
 }

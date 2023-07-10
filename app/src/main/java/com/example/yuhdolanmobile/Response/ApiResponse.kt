@@ -31,3 +31,13 @@ data class LogoutRequest(
 data class LogoutResponse(
     @SerializedName("status") val status: String
 )
+
+// category: API
+data class CategoryResponse(
+    @SerializedName("status") val status: String,
+    @SerializedName("data") val data: List<Category>
+)
+data class Category(
+    @SerializedName("id") val id: Int,
+    @SerializedName("nama") val nama: String,
+)
