@@ -14,7 +14,6 @@ import com.example.yuhdolanmobile.Adapter.CategoryAdapter
 import com.example.yuhdolanmobile.Adapter.DestinasiAdapter
 import com.example.yuhdolanmobile.Network.ApiClient
 import com.example.yuhdolanmobile.R
-import com.example.yuhdolanmobile.Response.ApiResponse
 import com.example.yuhdolanmobile.Response.Category
 import com.example.yuhdolanmobile.Response.CategoryResponse
 import com.example.yuhdolanmobile.Response.Destinasi
