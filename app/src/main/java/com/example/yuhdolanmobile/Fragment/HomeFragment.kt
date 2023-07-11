@@ -5,15 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.yuhdolanmobile.Adapter.CategoryAdapter
+import com.example.yuhdolanmobile.Adapter.DestinasiAdapter
 import com.example.yuhdolanmobile.Network.ApiClient
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.ApiResponse
 import com.example.yuhdolanmobile.Response.Category
 import com.example.yuhdolanmobile.Response.CategoryResponse
+import com.example.yuhdolanmobile.Response.Destinasi
+import com.example.yuhdolanmobile.Response.DestinasiResponse
 import com.example.yuhdolanmobile.databinding.ActivityMainBinding
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -42,9 +47,11 @@ class HomeFragment : Fragment() {
     private lateinit var rvCategory: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
 
-    private lateinit var skeleton: Skeleton
+    private lateinit var rvDestinasi: RecyclerView
+    private lateinit var destinasiAdapter: DestinasiAdapter
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var categorySkeleton: Skeleton
+    private lateinit var destinasiSkeleton: Skeleton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,16 +75,25 @@ class HomeFragment : Fragment() {
 
         swipeRefresh = view.findViewById(R.id.swipeRefreshLayout)
         rvCategory = view.findViewById(R.id.rv_category)
+        rvDestinasi = view.findViewById(R.id.rv_destinasi)
 
         rvCategory.layoutManager = GridLayoutManager(context, 3)
         categoryAdapter = CategoryAdapter(dataList = arrayListOf(), context = requireContext())
         rvCategory.adapter = categoryAdapter
 
-        skeleton = view.findViewById(R.id.skeletonLayout)
-        skeleton = rvCategory.applySkeleton(R.layout.item_category_card, 3)
+        rvDestinasi.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        destinasiAdapter = DestinasiAdapter(dataList = arrayListOf(), context = requireContext())
+        rvDestinasi.adapter = destinasiAdapter
 
-        skeleton.showSkeleton()
+        categorySkeleton = view.findViewById(R.id.skeletonCategoryLayout)
+        categorySkeleton = rvCategory.applySkeleton(R.layout.item_category_card, 6)
+        destinasiSkeleton = view.findViewById(R.id.skeletonDestinasiLayout)
+        destinasiSkeleton = rvDestinasi.applySkeleton(R.layout.item_destinasi_card, 6)
+
+        categorySkeleton.showSkeleton()
+        destinasiSkeleton.showSkeleton()
         getRemoteCategory()
+        getRemoteDestinasi()
 
         swipeRefresh.setOnRefreshListener {
             getRemoteCategory()
@@ -98,12 +114,37 @@ class HomeFragment : Fragment() {
                         categoryAdapter.setData(data as ArrayList<Category>)
                     }
                     swipeRefresh.isRefreshing = false
-                    skeleton.showOriginal()
+                    categorySkeleton.showOriginal()
                 }
 
                 override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {
                     swipeRefresh.isRefreshing = false
-                    skeleton.showOriginal()
+                    categorySkeleton.showOriginal()
+                }
+            })
+        }, 1000)
+    }
+
+    private fun getRemoteDestinasi() {
+        val handler = android.os.Handler()
+        handler.postDelayed({
+            swipeRefresh.isRefreshing = true
+            ApiClient.apiService.getDestinasi().enqueue(object : Callback<DestinasiResponse> {
+                override fun onResponse(
+                    call: Call<DestinasiResponse>,
+                    response: Response<DestinasiResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val data = response.body()?.data
+                        destinasiAdapter.setData(data as ArrayList<Destinasi>)
+                    }
+                    swipeRefresh.isRefreshing = false
+                    destinasiSkeleton.showOriginal()
+                }
+
+                override fun onFailure(call: Call<DestinasiResponse>, t: Throwable) {
+                    swipeRefresh.isRefreshing = false
+                    destinasiSkeleton.showOriginal()
                 }
             })
         }, 1000)

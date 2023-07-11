@@ -2,6 +2,7 @@ package com.example.yuhdolanmobile.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.Category
+import com.example.yuhdolanmobile.Response.Destinasi
 import org.w3c.dom.Text
 
 class CategoryAdapter(private val context: Context, private val dataList: ArrayList<Category>): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
@@ -24,7 +26,13 @@ class CategoryAdapter(private val context: Context, private val dataList: ArrayL
         return CategoryViewHolder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int {
+        return if (dataList.size > 6) {
+            6
+        } else {
+            dataList.size
+        }
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<Category>) {

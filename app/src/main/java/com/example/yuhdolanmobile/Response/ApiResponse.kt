@@ -2,11 +2,6 @@ package com.example.yuhdolanmobile.Response
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiResponse(
-    @SerializedName("status") val status: String,
-    @SerializedName("data") val data: String
-)
-
 data class UserResponse(
     @SerializedName("status") val status: String,
     @SerializedName("name") val name: String,
@@ -24,10 +19,6 @@ data class LoginResponse(
     @SerializedName("status") val status: String
 )
 
-data class LogoutRequest(
-    @SerializedName("token") val token: String
-)
-
 data class LogoutResponse(
     @SerializedName("status") val status: String
 )
@@ -35,9 +26,26 @@ data class LogoutResponse(
 // category: API
 data class CategoryResponse(
     @SerializedName("status") val status: String,
-    @SerializedName("data") val data: List<Category>
+    @SerializedName("data") val data: List<Category>,
 )
+
 data class Category(
     @SerializedName("id") val id: Int,
     @SerializedName("nama") val nama: String,
+)
+
+// destinasi: API
+data class DestinasiResponse(
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val data: List<Destinasi>,
+)
+
+data class Destinasi(
+    @SerializedName("id") val id: Int,
+    @SerializedName("nama") val nama: String,
+    @SerializedName("lokasi") val lokasi: String,
+    @SerializedName("deskripsi") val deskripsi: String,
+    @SerializedName("user_id") val user_id: Int,
+    // nested category object
+    @SerializedName("category") val category: Category,
 )
