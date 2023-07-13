@@ -27,6 +27,13 @@ data class LogoutResponse(
 data class CategoryResponse(
     @SerializedName("status") val status: String,
     @SerializedName("data") val data: List<Category>,
+    @SerializedName("destinasi") val destinasi: List<Destinasi>,
+)
+
+data class CategoryByIdResponse(
+    @SerializedName("status") val status: String,
+    @SerializedName("data") val data: Category,
+    @SerializedName("destinasi") val destinasi: List<Destinasi>,
 )
 
 data class Category(

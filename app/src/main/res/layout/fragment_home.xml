@@ -52,10 +52,12 @@
                 </LinearLayout>
 
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     android:layout_marginHorizontal="24dp">
 
                     <TextView
@@ -67,18 +69,18 @@
                         android:textColor="@color/black" />
                     <TextView
                         android:id="@+id/show_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:gravity="fill_vertical"
+                        android:gravity="end"
                         android:text="Lihat semua"
                         android:textSize="16dp"
                         android:textStyle="normal"
                         android:clickable="true"
                         android:focusable="true"
-                        android:textColor="@color/red_500" />
+                        android:textColor="@color/greysmoke" />
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <com.faltenreich.skeletonlayout.SkeletonLayout
                     android:id="@+id/skeletonCategoryLayout"
@@ -98,33 +100,35 @@
 
                 </com.faltenreich.skeletonlayout.SkeletonLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     android:layout_marginHorizontal="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Destinasi"
+                        android:text="Destinasi Terbaru"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:textColor="@color/black" />
                     <TextView
                         android:id="@+id/show_destinasi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:gravity="fill_vertical"
+                        android:gravity="end"
                         android:text="Lihat semua"
                         android:textSize="16dp"
                         android:textStyle="normal"
                         android:clickable="true"
                         android:focusable="true"
-                        android:textColor="@color/red_500" />
+                        android:textColor="@color/greysmoke" />
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <com.faltenreich.skeletonlayout.SkeletonLayout
                     android:id="@+id/skeletonDestinasiLayout"

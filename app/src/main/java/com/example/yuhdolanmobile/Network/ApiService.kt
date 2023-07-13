@@ -1,5 +1,6 @@
 package com.example.yuhdolanmobile.Network
 
+import com.example.yuhdolanmobile.Response.CategoryByIdResponse
 import com.example.yuhdolanmobile.Response.CategoryResponse
 import com.example.yuhdolanmobile.Response.DestinasiResponse
 import com.example.yuhdolanmobile.Response.LoginRequest
@@ -11,6 +12,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -30,6 +32,12 @@ interface ApiService {
 
     @GET("category")
     fun getCategory(): Call<CategoryResponse>
+
+    @Headers("Accept: application/json")
+    @GET("category/{id}")
+    fun getCategoryById(
+        @Path("id") categoryId: Int
+    ): Call<CategoryByIdResponse>
 
     @GET("destinasi")
     fun getDestinasi(): Call<DestinasiResponse>

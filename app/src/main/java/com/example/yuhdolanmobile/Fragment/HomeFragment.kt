@@ -1,17 +1,21 @@
 package com.example.yuhdolanmobile.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.yuhdolanmobile.Adapter.CategoryAdapter
 import com.example.yuhdolanmobile.Adapter.DestinasiAdapter
+import com.example.yuhdolanmobile.CategoryActivity
 import com.example.yuhdolanmobile.Network.ApiClient
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.Category
@@ -52,6 +56,8 @@ class HomeFragment : Fragment() {
     private lateinit var categorySkeleton: Skeleton
     private lateinit var destinasiSkeleton: Skeleton
 
+    private lateinit var tvCategoryAll: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -88,6 +94,13 @@ class HomeFragment : Fragment() {
         categorySkeleton = rvCategory.applySkeleton(R.layout.item_category_card, 6)
         destinasiSkeleton = view.findViewById(R.id.skeletonDestinasiLayout)
         destinasiSkeleton = rvDestinasi.applySkeleton(R.layout.item_destinasi_card, 6)
+
+
+        tvCategoryAll = view.findViewById(R.id.show_category)
+        tvCategoryAll.setOnClickListener(View.OnClickListener {
+            val intent = Intent(context, CategoryActivity::class.java)
+            startActivity(intent)
+        })
 
         categorySkeleton.showSkeleton()
         destinasiSkeleton.showSkeleton()

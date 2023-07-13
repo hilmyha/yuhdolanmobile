@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yuhdolanmobile.DestinasiByCategoryActivity
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.Category
 import com.example.yuhdolanmobile.Response.Destinasi
@@ -44,7 +45,14 @@ class CategoryAdapter(private val context: Context, private val dataList: ArrayL
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.tvCategoryTitle.text = dataList[position].nama
         holder.cvCategory.setOnClickListener {
-            Toast.makeText(context, dataList[position].nama, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, dataList[position].nama, Toast.LENGTH_SHORT).show()
+
+            val id = dataList[position].id.toString()
+            Intent(context, DestinasiByCategoryActivity::class.java).also {
+                it.putExtra("category", id)
+                it.putExtra("title", dataList[position].nama)
+                context.startActivity(it)
+            }
         }
     }
 }
