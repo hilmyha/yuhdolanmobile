@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cv_ulasan_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_rectangle_ulasan"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tv_title_ulasan_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Title"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_isi_ulasan_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loram ipsum dolor sit amet, consectetur adipiscing elit."
+            android:textSize="16sp"
+            android:textColor="@color/h2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:cardCornerRadius="100dp"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/guest"
+                    android:scaleType="fitXY">
+                </ImageView>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/tv_nama_ulasan_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usman Pamungkas"
+                    android:textSize="15sp"
+                    android:textColor="@color/h2" />
+                <TextView
+                    android:id="@+id/tv_tanggal_ulasan_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12/12/2020"
+                    android:textSize="13sp"
+                    android:textColor="@color/h2" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

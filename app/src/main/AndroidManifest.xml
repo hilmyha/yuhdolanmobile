@@ -15,6 +15,23 @@
         android:theme="@style/Theme.Yuhdolanmobile"
         tools:targetApi="31">
         <activity
+            android:name=".TambahUlasanActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCrJHVXgqtdEKI3yqMgHK_eW0QAZKwUYIU" />
+
+        <activity
+            android:name=".SingleDestinasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DestinasiShowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DestinasiActivity"
+            android:exported="false" />
+        <activity
             android:name=".CategoryActivity"
             android:exported="false" />
         <activity

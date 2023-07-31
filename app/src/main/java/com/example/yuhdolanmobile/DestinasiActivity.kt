@@ -4,23 +4,22 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.core.app.NotificationCompat.getCategory
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.yuhdolanmobile.Adapter.CategoryAdapter
+import com.example.yuhdolanmobile.Adapter.GridDestinasiAdapter
 import com.example.yuhdolanmobile.Network.ApiClient
-import com.example.yuhdolanmobile.Response.Category
-import com.example.yuhdolanmobile.Response.CategoryResponse
+import com.example.yuhdolanmobile.Response.DestinasiResponse
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
-import retrofit2.Callback
+import retrofit2.Call
+import retrofit2.Response
 
-class CategoryActivity : AppCompatActivity() {
+class DestinasiActivity : AppCompatActivity() {
 
-    private lateinit var rvCategory: RecyclerView
+    private lateinit var rvDestinasi: RecyclerView
 
-    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var destinasiAdapter: GridDestinasiAdapter
 
     private lateinit var ivBack: ImageView
 
@@ -30,17 +29,17 @@ class CategoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_category)
+        setContentView(R.layout.activity_destinasi)
 
-        categoryAdapter = CategoryAdapter(this@CategoryActivity, arrayListOf())
+        destinasiAdapter = GridDestinasiAdapter(this@DestinasiActivity, arrayListOf())
 
-        rvCategory = findViewById(R.id.rv_category)
-        rvCategory.layoutManager = GridLayoutManager(this@CategoryActivity, 3)
-        rvCategory.adapter = categoryAdapter
-        rvCategory.setHasFixedSize(true)
+        rvDestinasi = findViewById(R.id.rv_destinasi)
+        rvDestinasi.layoutManager = GridLayoutManager(this@DestinasiActivity, 1)
+        rvDestinasi.adapter = destinasiAdapter
+        rvDestinasi.setHasFixedSize(true)
 
         skeleton = findViewById(R.id.skeletonLayout)
-        skeleton = rvCategory.applySkeleton(R.layout.item_category_card, 6)
+        skeleton = rvDestinasi.applySkeleton(R.layout.item_category_destinasi_card, 10)
 
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
 
@@ -50,42 +49,40 @@ class CategoryActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        skeleton.showSkeleton()
+        getRemoteDestinasi()
+
         swipeRefreshLayout.setOnRefreshListener {
-            getRemoteCategory()
+            getRemoteDestinasi()
             swipeRefreshLayout.isRefreshing = false
         }
-
-        skeleton.showSkeleton()
-        getRemoteCategory()
     }
 
-    private fun getRemoteCategory() {
+    private fun getRemoteDestinasi() {
         val handler = android.os.Handler()
         handler.postDelayed({
-            ApiClient.apiService.getCategory().enqueue(object : Callback<CategoryResponse> {
+            swipeRefreshLayout.isRefreshing = true
+
+            ApiClient.apiService.getDestinasi().enqueue(object : retrofit2.Callback<DestinasiResponse> {
                 override fun onResponse(
-                    call: retrofit2.Call<CategoryResponse>,
-                    response: retrofit2.Response<CategoryResponse>
+                    call: Call<DestinasiResponse>,
+                    response: Response<DestinasiResponse>
                 ) {
                     if (response.isSuccessful) {
                         val data = response.body()?.data
                         if (data != null) {
-                            setData(data)
+                            destinasiAdapter.setData(data)
                         }
-                        swipeRefreshLayout.isRefreshing = false
-                        skeleton.showOriginal()
                     }
+                    swipeRefreshLayout.isRefreshing = false
+                    skeleton.showOriginal()
                 }
 
-                override fun onFailure(call: retrofit2.Call<CategoryResponse>, t: Throwable) {
+                override fun onFailure(call: Call<DestinasiResponse>, t: Throwable) {
                     swipeRefreshLayout.isRefreshing = false
                     skeleton.showOriginal()
                 }
             })
         }, 2000)
-    }
-
-    private fun setData(data: List<Category>) {
-        categoryAdapter.setData(data)
     }
 }

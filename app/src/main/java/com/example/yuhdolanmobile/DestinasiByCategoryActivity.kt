@@ -57,9 +57,8 @@ class DestinasiByCategoryActivity : AppCompatActivity() {
 
         ivBack = findViewById(R.id.iv_back)
         ivBack.setOnClickListener {
-            Intent(this@DestinasiByCategoryActivity, MainActivity::class.java).also {
-                startActivity(it)
-            }
+            // go back to previous activity
+            onBackPressed()
         }
 
         skeleton.showSkeleton()

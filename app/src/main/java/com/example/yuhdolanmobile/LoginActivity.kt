@@ -3,6 +3,7 @@ package com.example.yuhdolanmobile
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -103,8 +104,9 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-//    fun jumpToRegister(view: android.view.View) {
-//        val intent = Intent(this, RegisterActivity::class.java)
-//        startActivity(intent)
-//    }
+    fun jumpToRegister(view: android.view.View) {
+        val intent = Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("https://yuhdolan.my.id/register"));
+        startActivity(intent);
+    }
 }

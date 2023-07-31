@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.yuhdolanmobile.Adapter.CategoryAdapter
 import com.example.yuhdolanmobile.Adapter.DestinasiAdapter
 import com.example.yuhdolanmobile.CategoryActivity
+import com.example.yuhdolanmobile.DestinasiActivity
 import com.example.yuhdolanmobile.Network.ApiClient
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.Category
@@ -57,6 +58,7 @@ class HomeFragment : Fragment() {
     private lateinit var destinasiSkeleton: Skeleton
 
     private lateinit var tvCategoryAll: TextView
+    private lateinit var tvDestinasiAll: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,10 +97,15 @@ class HomeFragment : Fragment() {
         destinasiSkeleton = view.findViewById(R.id.skeletonDestinasiLayout)
         destinasiSkeleton = rvDestinasi.applySkeleton(R.layout.item_destinasi_card, 6)
 
-
         tvCategoryAll = view.findViewById(R.id.show_category)
         tvCategoryAll.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, CategoryActivity::class.java)
+            startActivity(intent)
+        })
+
+        tvDestinasiAll = view.findViewById(R.id.show_destinasi)
+        tvDestinasiAll.setOnClickListener(View.OnClickListener {
+            val intent = Intent(context, DestinasiActivity::class.java)
             startActivity(intent)
         })
 

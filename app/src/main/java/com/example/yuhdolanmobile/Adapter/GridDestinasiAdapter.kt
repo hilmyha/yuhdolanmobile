@@ -2,6 +2,7 @@ package com.example.yuhdolanmobile.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.Destinasi
+import com.example.yuhdolanmobile.SingleDestinasiActivity
 
 class GridDestinasiAdapter(private val context: Context, private val dataList: ArrayList<Destinasi>): RecyclerView.Adapter<GridDestinasiAdapter.CategoryDestinasiViewHolder>() {
     class CategoryDestinasiViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -37,7 +39,13 @@ class GridDestinasiAdapter(private val context: Context, private val dataList: A
         holder.tvDestinasiNama.text = dataList[position].nama
         holder.tvDestinasiLokasi.text = dataList[position].lokasi
         holder.cvCategoryDestinasi.setOnClickListener {
-            Toast.makeText(context, dataList[position].nama, Toast.LENGTH_SHORT).show()
+            val id = dataList[position].id.toString()
+            Intent(context, SingleDestinasiActivity::class.java).also {
+                it.putExtra("destinasi", id)
+                it.putExtra("name", dataList[position].nama)
+                it.putExtra("excerpt", dataList[position].excerpt)
+                context.startActivity(it)
+            }
         }
     }
 
