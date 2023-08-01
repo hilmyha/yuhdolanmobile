@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_ulasan_fragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -58,7 +59,7 @@
                         android:layout_marginBottom="24dp"
                         android:overScrollMode="never"
                         android:clipToPadding="true"
-                        tools:listitem="@layout/item_ulasan_card" />
+                        tools:listitem="@layout/item_ulasan_section_card" />
                 </com.faltenreich.skeletonlayout.SkeletonLayout>
             </LinearLayout>
 

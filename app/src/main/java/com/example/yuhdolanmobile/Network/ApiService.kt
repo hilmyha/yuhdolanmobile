@@ -8,11 +8,13 @@ import com.example.yuhdolanmobile.Response.DestinasiUlasanResponse
 import com.example.yuhdolanmobile.Response.LoginRequest
 import com.example.yuhdolanmobile.Response.LoginResponse
 import com.example.yuhdolanmobile.Response.LogoutResponse
+import com.example.yuhdolanmobile.Response.UlasanDeleteResponse
 import com.example.yuhdolanmobile.Response.UlasanRequest
 import com.example.yuhdolanmobile.Response.UlasanResponse
 import com.example.yuhdolanmobile.Response.UserResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -61,4 +63,10 @@ interface ApiService {
 
     @GET("ulasan")
     fun getUlasan(): Call<DestinasiUlasanResponse>
+
+    @Headers("Accept: application/json")
+    @DELETE("ulasan/{id}")
+    fun deleteUlasan(
+        @Path("id") ulasanId: Int
+    ): Call<UlasanDeleteResponse>
 }

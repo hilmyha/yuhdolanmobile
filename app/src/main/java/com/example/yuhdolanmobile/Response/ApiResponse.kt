@@ -72,6 +72,11 @@ data class UlasanResponse(
     @SerializedName("message") val message: String,
 )
 
+data class UlasanDeleteResponse(
+    @SerializedName("status") val status: String,
+    @SerializedName("message") val message: String,
+)
+
 data class Destinasi(
     @SerializedName("id") val id: Int,
     @SerializedName("nama") val nama: String,

@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.yuhdolanmobile.Adapter.UlasanAdapter
+import com.example.yuhdolanmobile.Adapter.UlasanFragmentAdapter
 import com.example.yuhdolanmobile.Network.ApiClient
 import com.example.yuhdolanmobile.R
 import com.example.yuhdolanmobile.Response.DestinasiUlasanResponse
@@ -37,7 +39,9 @@ class UlasanFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var rvUlasan: RecyclerView
-    private lateinit var ulasanAdapter: UlasanAdapter
+    private lateinit var ulasanAdapter: UlasanFragmentAdapter
+
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     private lateinit var skeleton: Skeleton
 
@@ -61,10 +65,11 @@ class UlasanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        swipeRefresh = view.findViewById(R.id.swipeRefreshLayout)
         rvUlasan = view.findViewById(R.id.rv_ulasan)
 
         rvUlasan.layoutManager = GridLayoutManager(context, 1)
-        ulasanAdapter = UlasanAdapter(dataList = arrayListOf(), context = requireContext())
+        ulasanAdapter = UlasanFragmentAdapter(dataList = arrayListOf(), context = requireContext())
         rvUlasan.adapter = ulasanAdapter
 
         skeleton = view.findViewById(R.id.skeletonLayout)
@@ -72,6 +77,11 @@ class UlasanFragment : Fragment() {
 
         skeleton.showSkeleton()
         getUlasan()
+
+        swipeRefresh.setOnRefreshListener {
+            getUlasan()
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun getUlasan() {
