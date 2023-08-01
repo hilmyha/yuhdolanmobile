@@ -5,6 +5,7 @@ import org.json.JSONObject
 
 data class UserResponse(
     @SerializedName("status") val status: String,
+    @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("username") val username: String,
     @SerializedName("email") val email: String,

@@ -23,7 +23,6 @@ import com.example.yuhdolanmobile.Response.Category
 import com.example.yuhdolanmobile.Response.CategoryResponse
 import com.example.yuhdolanmobile.Response.Destinasi
 import com.example.yuhdolanmobile.Response.DestinasiResponse
-import com.example.yuhdolanmobile.databinding.ActivityMainBinding
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.faltenreich.skeletonlayout.createSkeleton

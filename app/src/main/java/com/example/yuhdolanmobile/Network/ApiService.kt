@@ -4,6 +4,7 @@ import com.example.yuhdolanmobile.Response.CategoryByIdResponse
 import com.example.yuhdolanmobile.Response.CategoryResponse
 import com.example.yuhdolanmobile.Response.DestinasiByIdResponse
 import com.example.yuhdolanmobile.Response.DestinasiResponse
+import com.example.yuhdolanmobile.Response.DestinasiUlasanResponse
 import com.example.yuhdolanmobile.Response.LoginRequest
 import com.example.yuhdolanmobile.Response.LoginResponse
 import com.example.yuhdolanmobile.Response.LogoutResponse
@@ -57,4 +58,7 @@ interface ApiService {
         @Path("destinasi") destinasiId: Int,
         @Body request: UlasanRequest
     ): Call<UlasanResponse>
+
+    @GET("ulasan")
+    fun getUlasan(): Call<DestinasiUlasanResponse>
 }
